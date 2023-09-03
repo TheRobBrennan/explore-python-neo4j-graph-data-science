@@ -56,6 +56,16 @@ For this example, I'm using the freely available [Neo4j Desktop](https://neo4j.c
 
 Please follow the guide at [https://neo4j.com/developer/neo4j-desktop/](https://neo4j.com/developer/neo4j-desktop/) if you are just getting started with [Neo4j Desktop](https://neo4j.com/download/).
 
+TL;DR Already comfortable with having an empty graph database set up? Simply update `config.py` with your credentials and run the desired script(s):
+
+- Load data into your graph database - [load-csv-data-into-neo4j.py](./load-csv-data-into-neo4j.py)
+  - Configure Neo4j so that you can import files
+  - Specify the full path for importing files
+- Create a graph projection using Neo4j Graph Data Science - [create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py](./create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py)
+  - Find the shortest path between two stations - [find-the-shortest-path-between-two-stations.py](./find-the-shortest-path-between-two-stations.py)
+  - Determine the most critical station in the graph - [determine-the-most-critical-station-in-the-railway-knowledge-graph.py](./determine-the-most-critical-station-in-the-railway-knowledge-graph.py)
+  - Compute centrality scores for all Station nodes and write those scores back as a new `betweenness` property - [compute-centrality-scores-for-all-railway-stations-in-our-knowledge-graph.py](./compute-centrality-scores-for-all-railway-stations-in-our-knowledge-graph.py)
+
 ### Database configuration
 
 If you would like to follow along with this example, please make sure you following steps:
@@ -69,9 +79,6 @@ By default, Neo4j restricts import from the `import` folder associated with your
 
 ```sh
 # ...
-
-# 2023.09.03 => Uncommented so that we can import from file URLs when loading data from our local environment
-dbms.security.allow_csv_import_from_file_urls=true
 
 # 2023.09.03 => Sets the root directory for file:/// URLs used with the Cypher LOAD CSV clause. This should be set to a single directory
 # relative to the Neo4j installation path on the database server. All requests to load from file:/// URLs will then be relative to the
@@ -139,7 +146,7 @@ Python 3.11.1
 ##### Update information to connect to your Neo4j graph database
 
 ```python
-# Update load-csv-data-into-neo4j.py to match the credentials you chose when creating your Neo4j graph database
+# Update config.py to match the credentials you chose when creating your Neo4j graph database
 host = "bolt://localhost:7687"
 user = "neo4j"
 password = "yoloyolo"
@@ -213,16 +220,12 @@ First, update `create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-gr
 
 ```python
 # create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py
+import config
 from graphdatascience import GraphDataScience
 
-# Connect to the database (ex. Neo4j Desktop on macOS)
-# Please see https://neo4j.com/docs/graph-data-science/current/installation/neo4j-desktop/ for a quick visual guide on installing the Neo4j Graph Database Science plug-in to your database
-host = "bolt://localhost:7687"
-user = "neo4j"
-password = "yoloyolo"
-
-# Authenticate to our knowledge graph
-gds = GraphDataScience(host, auth=(user, password), database="neo4j")
+gds = GraphDataScience(
+    config.host, auth=(config.user, config.password), database="neo4j"
+)
 
 # Create a projection called "trains" that will be stored in the graph catalog for later use
 # - The node_spec parameter is a MATCH clause that returns the node IDs of all stations
@@ -327,10 +330,10 @@ The centrality score we calculated would be useful if it were contained within o
 Using the `trains` Neo4j Graph Data Science (GDS) projection from above, let's write the centrality scores of our Station nodes back to the underlying knowledge graph as a new `betweenness` property.
 
 ```sh
-(.venv) % python3
+(.venv) % python3 compute-centrality-scores-for-all-railway-stations-in-our-knowledge-graph.py
 
 # OPTIONAL: On macOS and Linux, you can see how long it takes to execute the script with "time"
-(.venv) % time python3
+(.venv) % time python3 compute-centrality-scores-for-all-railway-stations-in-our-knowledge-graph.py
 
 Total number of stations: 2593
 Number of stations with betweenness score: 2593
