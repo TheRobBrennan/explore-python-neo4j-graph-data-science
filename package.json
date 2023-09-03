@@ -1,0 +1,18 @@
+{
+  "name": "explore-python-neo4j-graph-data-science",
+  "version": "0.0.0",
+  "description": "This project will explore getting started developing with [Python](https://www.python.org) and Neo4j [Graph Data Science](https://neo4j.com/docs/graph-data-science/current/algorithms/) (GDS) as quickly as possible using [Visual Studio Code](https://code.visualstudio.com).",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheRobBrennan/explore-python-neo4j-graph-data-science.git"
+  },
+  "author": "Rob Brennan <rob@therobbrennan.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TheRobBrennan/explore-python-neo4j-graph-data-science/issues"
+  },
+  "homepage": "https://github.com/TheRobBrennan/explore-python-neo4j-graph-data-science#readme"
+}
