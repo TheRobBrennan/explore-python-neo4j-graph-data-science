@@ -1,12 +1,9 @@
+import config
 from graphdatascience import GraphDataScience
 
-# Connect to the database (ex. Neo4j Desktop on macOS)
-host = "bolt://localhost:7687"
-user = "neo4j"
-password = "yoloyolo"
-
-# Authenticate to our knowledge graph
-gds = GraphDataScience(host, auth=(user, password), database="neo4j")
+gds = GraphDataScience(
+    config.host, auth=(config.user, config.password), database="neo4j"
+)
 
 graph = gds.graph.get("trains")
 result = gds.betweenness.stream(graph)
@@ -19,7 +16,7 @@ n = gds.run_cypher(
 )
 
 print(
-    f"\nThe most critical station in our railway knowledge graph (based on the highest centrality) is: {n['s.name'][0]} (score: {result})\n"
+    f"\nThe most critical station in our railway knowledge graph (based on the highest centrality) is: {n['s.name'][0]}\n"
 )
 
 gds.close()

@@ -1,12 +1,9 @@
+import config
 from graphdatascience import GraphDataScience
 
-# Connect to the database (ex. Neo4j Desktop on macOS)
-# Please see https://neo4j.com/docs/graph-data-science/current/installation/neo4j-desktop/ for a quick visual guide on installing the Neo4j Graph Database Science plug-in to your database
-host = "bolt://localhost:7687"
-user = "neo4j"
-password = "yoloyolo"
-
-gds = GraphDataScience(host, auth=(user, password), database="neo4j")
+gds = GraphDataScience(
+    config.host, auth=(config.user, config.password), database="neo4j"
+)
 
 # By default, Neo4j restricts which directories are allowed to contain data to be imported
 # Please refer to the Neo4j documentation at https://neo4j.com/docs/cypher-manual/current/clauses/load-csv/#load-csv-import-data-from-a-remote-csv-file for changes to be made to your database configuration file

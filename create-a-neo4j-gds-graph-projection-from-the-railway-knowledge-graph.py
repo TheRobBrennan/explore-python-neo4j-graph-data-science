@@ -1,13 +1,9 @@
+import config
 from graphdatascience import GraphDataScience
 
-# Connect to the database (ex. Neo4j Desktop on macOS)
-# Please see https://neo4j.com/docs/graph-data-science/current/installation/neo4j-desktop/ for a quick visual guide on installing the Neo4j Graph Database Science plug-in to your database
-host = "bolt://localhost:7687"
-user = "neo4j"
-password = "yoloyolo"
-
-# Authenticate to our knowledge graph
-gds = GraphDataScience(host, auth=(user, password), database="neo4j")
+gds = GraphDataScience(
+    config.host, auth=(config.user, config.password), database="neo4j"
+)
 
 # Create a projection called "trains" that will be stored in the graph catalog for later use
 # - The node_spec parameter is a MATCH clause that returns the node IDs of all stations

@@ -1,12 +1,9 @@
+import config
 from graphdatascience import GraphDataScience
 
-# Connect to the database (ex. Neo4j Desktop on macOS)
-host = "bolt://localhost:7687"
-user = "neo4j"
-password = "yoloyolo"
-
-# Authenticate to our knowledge graph
-gds = GraphDataScience(host, auth=(user, password), database="neo4j")
+gds = GraphDataScience(
+    config.host, auth=(config.user, config.password), database="neo4j"
+)
 
 bham = gds.find_node_id(["Station"], {"name": "Birmingham New Street"})
 eboro = gds.find_node_id(["Station"], {"name": "Edinburgh"})
