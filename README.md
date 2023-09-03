@@ -300,3 +300,22 @@ Shortest distance from Birmingham New Street to Edinburgh involves visiting 31 s
 
 python3 find-the-shortest-path-between-two-stations.py  1.15s user 1.21s system 429% cpu 0.549 total
 ```
+
+#### Use Neo4j Graph Data Science (GDS) to find the most critical station on the rail network
+
+SCENARIO: Birmingham New Street is a busy hub station that serves routes across Great Britain - including routes that intersect Edinburgh in the Scottish lowlands. You might suspect this is the most critical station on the rail network. Before advocating for significant funding to improve the most vital station and surrounding track in Great Britain, you would like to double-check your assumption and verify (or debunk) the Birmingham New Street station's importance in the rail network using centrality.
+
+Using the `trains` Neo4j Graph Data Science (GDS) projection from above, let's find the most critical station on the rail network in Great Britain.
+
+```sh
+(.venv) % python3 determine-the-most-critical-station-in-the-railway-knowledge-graph.py
+
+# OPTIONAL: On macOS and Linux, you can see how long it takes to execute the script with "time"
+(.venv) % time python3 determine-the-most-critical-station-in-the-railway-knowledge-graph.py
+
+The most critical station in our railway knowledge graph (based on the highest centrality) is: Tamworth
+
+python3 determine-the-most-critical-station-in-the-railway-knowledge-graph.py  0.90s user 1.47s system 338% cpu 0.701 total
+```
+
+Tamworth - located just a few miles away from Birmingham - has the highest centrality score and so the greatest impact on the rail network in the case of failures.
