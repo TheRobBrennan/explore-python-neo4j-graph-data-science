@@ -139,7 +139,7 @@ Python 3.11.1
 ##### Update information to connect to your Neo4j graph database
 
 ```python
-# Update load_csv_data_into_neo4j.py to match the credentials you chose when creating your Neo4j graph database
+# Update load-csv-data-into-neo4j.py to match the credentials you chose when creating your Neo4j graph database
 host = "bolt://localhost:7687"
 user = "neo4j"
 password = "yoloyolo"
@@ -180,11 +180,11 @@ gds.run_cypher(
 Let's load our data:
 
 ```python
-(.venv) % python3 load_csv_data_into_neo4j.py
+(.venv) % python3 load-csv-data-into-neo4j.py
 
 # OPTIONAL: On macOS and Linux, you can see how long it takes to execute the script with "time"
-(.venv) % time python3 load_csv_data_into_neo4j.py
-python3 load_csv_data_into_neo4j.py  0.87s user 1.63s system 52% cpu 4.779 total
+(.venv) % time python3 load-csv-data-into-neo4j.py
+python3 load-csv-data-into-neo4j.py  0.87s user 1.63s system 52% cpu 4.779 total
 ```
 
 #### Step 5 - Explore your database using Neo4j Browser
