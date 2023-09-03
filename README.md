@@ -52,9 +52,18 @@ That's it! Now, if you re-run the program - with or without the debugger - your 
 
 ## EXAMPLE: Explore Neo4j Graph Data Science
 
-For this example, I'm using the freely available [Neo4j Desktop](https://neo4j.com/download/) app on macOS Ventura 13.5.1 (22G90). Please follow
+For this example, I'm using the freely available [Neo4j Desktop](https://neo4j.com/download/) app on macOS Ventura 13.5.1 (22G90).
+
+Please follow the guide at [https://neo4j.com/developer/neo4j-desktop/](https://neo4j.com/developer/neo4j-desktop/) if you are just getting started with [Neo4j Desktop](https://neo4j.com/download/).
 
 ### Database configuration
+
+If you would like to follow along with this example, please make sure you following steps:
+
+- Step 1 - Configure your Neo4j database configuration to allow importing files within your development environment
+- Step 2 - Install the Graph Data Science Library plug-in
+
+#### Step 1 - Configure your Neo4j database configuration to allow importing files within your development environment
 
 By default, Neo4j restricts import from the `import` folder associated with your particular graph database. Please see the guide on [Modifying settings for the DBMS](https://neo4j.com/developer/neo4j-desktop/#desktop-DBMS-settings) so that you can make the following changes to your `neo4j.conf` file for your specific graph database:
 
@@ -80,3 +89,9 @@ dbms.security.allow_csv_import_from_file_urls=true
 # ...
 
 ```
+
+#### Step 2 - Install the Graph Data Science Library plug-in
+
+Please see the guide at [https://neo4j.com/docs/graph-data-science/current/installation/neo4j-desktop/](https://neo4j.com/docs/graph-data-science/current/installation/neo4j-desktop/) for instructions on install the Neo4j Graph Data Science Library plug-in for your graph database.
+
+![https://neo4j.com/docs/graph-data-science/current/_images/neo4j-desktop-gds.png](https://neo4j.com/docs/graph-data-science/current/_images/neo4j-desktop-gds.png)
