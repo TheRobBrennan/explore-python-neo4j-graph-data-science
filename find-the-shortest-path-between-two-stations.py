@@ -1,7 +1,6 @@
 from graphdatascience import GraphDataScience
 
 # Connect to the database (ex. Neo4j Desktop on macOS)
-# Please see https://neo4j.com/docs/graph-data-science/current/installation/neo4j-desktop/ for a quick visual guide on installing the Neo4j Graph Database Science plug-in to your database
 host = "bolt://localhost:7687"
 user = "neo4j"
 password = "yoloyolo"
@@ -19,19 +18,23 @@ shortest_path = gds.shortestPath.dijkstra.stream(
     relationshipWeightProperty="distance",
 )
 
-# Cypher query to display the details of the shortest path between two stations using our "trains" graph projection:
-#   stations - An array of station names along the route
-#   costs - An array containing the accumulating cost of the route based on the distance value between each segment
-# -------------------------------------------------------------------------------------------------------------------
-# MATCH (bham:Station {name: 'Birmingham New Street'}), (eboro:Station {name: 'Edinburgh'})
-# CALL gds.shortestPath.dijkstra.stream('trains', {
-#   sourceNode: id(bham),
-#   targetNode: id(eboro),
-#   relationshipWeightProperty: 'distance'
-# })
-# YIELD nodeIds, costs
-# RETURN [nodeId IN nodeIds | gds.util.asNode(nodeId).name] AS stations, costs
+# Extract nodeIds and costs from the shortest_path result
+nodeIds = shortest_path.get("nodeIds").get(0)
+costs = shortest_path.get("costs").get(0)
 
-print("Shortest distance: %s" % shortest_path.get("costs").get(0)[-1])
+# Fetch station names and print stations and costs for each stop along the route
+stations = [gds.util.asNode(nodeId).get("name") for nodeId in nodeIds]
+for station, cost in zip(stations, costs):
+    print(f"Station: {station} (Cost: {'{:.2f}'.format(cost)})")
+
+# Print starting and ending stations
+print("\nStarting Station:", stations[0])
+print("Ending Station:", stations[-1])
+
+print(
+    "\nShortest distance from {} to {} involves visiting {} station(s) for a total distance of {}\n".format(
+        stations[0], stations[-1], len(stations), "{:.2f}".format(costs[-1])
+    )
+)
 
 gds.close()

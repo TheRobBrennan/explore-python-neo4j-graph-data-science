@@ -251,3 +251,52 @@ Let's run our script to create this example projection:
 Loading: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100.0/100 [00:00<00:00, 4372.53%/s]
 python3   1.16s user 1.32s system 231% cpu 1.075 total
 ```
+
+#### Use Neo4j Graph Data Science (GDS) to find the shortest path between two stations
+
+Using the `trains` Neo4j Graph Data Science (GDS) projection from above, let's find the shortest path between two stations:
+
+```sh
+(.venv) % python3 find-the-shortest-path-between-two-stations.py
+
+# OPTIONAL: On macOS and Linux, you can see how long it takes to execute the script with "time"
+(.venv) % time python3 find-the-shortest-path-between-two-stations.py
+Station: Birmingham New Street (Cost: 0.00)
+Station: Smethwick Galton Bridge (Cost: 3.91)
+Station: Sandwell & Dudley (Cost: 5.16)
+Station: Dudley Port (Cost: 7.12)
+Station: Tipton (Cost: 8.01)
+Station: Coseley (Cost: 9.39)
+Station: Wolverhampton (Cost: 12.70)
+Station: Penkridge (Cost: 22.30)
+Station: Stafford (Cost: 28.01)
+Station: Crewe (Cost: 52.27)
+Station: Winsford (Cost: 59.81)
+Station: Hartford (Cheshire) (Cost: 64.10)
+Station: Acton Bridge (Cheshire) (Cost: 66.77)
+Station: Warrington Bank Quay (Cost: 76.42)
+Station: Wigan North Western (Cost: 88.16)
+Station: Euxton Balshaw Lane (Cost: 96.52)
+Station: Leyland (Cost: 99.27)
+Station: Preston (Lancs) (Cost: 103.30)
+Station: Lancaster (Cost: 124.34)
+Station: Oxenholme Lake District (Cost: 143.43)
+Station: Penrith (North Lakes) (Cost: 175.59)
+Station: Carlisle (Cost: 193.44)
+Station: Lockerbie (Cost: 219.27)
+Station: Carstairs (Cost: 267.11)
+Station: Kirknewton (Cost: 284.86)
+Station: Curriehill (Cost: 289.36)
+Station: Wester Hailes (Cost: 290.96)
+Station: Kingsknowe (Cost: 292.05)
+Station: Slateford (Cost: 292.93)
+Station: Haymarket (Cost: 294.67)
+Station: Edinburgh (Cost: 295.91)
+
+Starting Station: Birmingham New Street
+Ending Station: Edinburgh
+
+Shortest distance from Birmingham New Street to Edinburgh involves visiting 31 station(s) for a total distance of 295.91
+
+python3 find-the-shortest-path-between-two-stations.py  1.15s user 1.21s system 429% cpu 0.549 total
+```
