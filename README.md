@@ -23,22 +23,29 @@ Python 3.11.1
 
 # Install Python packages in a virtual environment
 # EXAMPLE: Install simplejson - https://pypi.org/project/simplejson/
-# % pip install simplejson
+# % pip3 install simplejson
 # ... continue to install packages as needed ...
 
 # When you are ready to generate a requirements.txt file
-# % pip freeze > requirements.txt
+# % pip3 freeze > requirements.txt
 
 # What happens if you want to uninstall a package?
 
 # Uninstall the package from your virtual environment
-# % pip uninstall simplejson
+# % pip3 uninstall simplejson
 
 # Remove the dependency from requirements.txt if it exists
-# % pip uninstall -r requirements.txt
+# % pip3 uninstall -r requirements.txt
 
 # Install the packages from requirements.txt
-(.venv) % pip install -r requirements.txt
+(.venv) % pip3 install -r requirements.txt
+
+# OPTIONAL: Deactivate your Python Virtual Environment
+(.venv) % deactivate
+%
+
+# OPTIONAL: Delete your Python Virtual Environment
+% rm -r .venv
 ```
 
 That's it! Now, if you re-run the program - with or without the debugger - your Python script should have executed.
