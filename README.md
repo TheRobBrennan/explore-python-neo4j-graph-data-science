@@ -14,12 +14,12 @@ Python 3.11.1
 # Create a new virtual environment for the project
 % python3 -m venv .venv
 
-# Select your new environment by using the Python: Select Interpreter command in VS Code
-#   - Enter the path: ./.venv/bin/python
-
 # Activate your virtual environment
 % source .venv/bin/activate
 (.venv) %
+
+# Select your new environment by using the Python: Select Interpreter command in VS Code
+#   - Enter the path: ./.venv/bin/python
 
 # Install Python packages in a virtual environment
 # EXAMPLE: Install simplejson - https://pypi.org/project/simplejson/
@@ -95,3 +95,112 @@ dbms.security.allow_csv_import_from_file_urls=true
 Please see the guide at [https://neo4j.com/docs/graph-data-science/current/installation/neo4j-desktop/](https://neo4j.com/docs/graph-data-science/current/installation/neo4j-desktop/) for instructions on install the Neo4j Graph Data Science Library plug-in for your graph database.
 
 ![https://neo4j.com/docs/graph-data-science/current/_images/neo4j-desktop-gds.png](https://neo4j.com/docs/graph-data-science/current/_images/neo4j-desktop-gds.png)
+
+### Load CSV data into your Neo4j graph database
+
+We're ready to load data into our Neo4j graph database 🤓
+
+Assuming you have started your graph database - a locally-running Neo4j Desktop database in this example - please make sure you following steps:
+
+- Step 1 - Create the Python virtual environment
+- Step 2 - Install our dependencies
+- Step 3 - Update the installation script
+- Step 4 - Load data into our Neo4j graph database
+- Step 5 - Explore your database using Neo4j Browser
+
+#### Step 1 - Create the Python virtual environment
+
+```sh
+# Verify that you have Python installed on your machine
+% python3 --version
+Python 3.11.1
+
+# Create a new virtual environment for the project
+% python3 -m venv .venv
+
+```
+
+#### Step 2 - Install our dependencies
+
+```sh
+# Activate your virtual environment
+% source .venv/bin/activate
+(.venv) %
+
+# Select your new environment by using the Python: Select Interpreter command in VS Code
+#   - Enter the path: ./.venv/bin/python
+
+# Install the packages from requirements.txt
+(.venv) % pip3 install -r requirements.txt
+```
+
+#### Step 3 - Update the installation script
+
+##### Update information to connect to your Neo4j graph database
+
+```python
+# Update load_csv_data_into_neo4j.py to match the credentials you chose when creating your Neo4j graph database
+host = "bolt://localhost:7687"
+user = "neo4j"
+password = "yoloyolo"
+```
+
+##### Specify the full path for importing files
+
+If you would like to import data from your local environment, please be sure to use the full path to the files on your system:
+
+Replace `file:///Users/rob/repos/explore-python-neo4j-graph-data-science/data/` with `file:///path/to/my/repo/explore-python-neo4j-graph-data-science/data/`
+
+```python
+# ...
+
+# Load stations as nodes
+gds.run_cypher(
+    """
+    LOAD CSV WITH HEADERS FROM 'file:///Users/rob/repos/explore-python-neo4j-graph-data-science/data/nr-stations-all.csv' AS station
+    MERGE (:Station {name: station.name, crs: station.crs})
+    """
+)
+
+# Load tracks between stations as relationships
+gds.run_cypher(
+    """
+  LOAD CSV WITH HEADERS FROM 'file:///Users/rob/repos/explore-python-neo4j-graph-data-science/data/nr-station-links.csv' AS track
+  MATCH (from:Station {crs: track.from})
+  MATCH (to:Station {crs: track.to})
+  MERGE (from)-[:TRACK {distance: round( toFloat(track.distance), 2)}]->(to)
+  """
+)
+
+# ...
+```
+
+#### Step 4 - Load data into our Neo4j graph database
+
+Let's load our data:
+
+```python
+(.venv) % python3 load_csv_data_into_neo4j.py
+
+# OPTIONAL: On macOS and Linux, you can see how long it takes to execute the script with "time"
+(.venv) % time python3 load_csv_data_into_neo4j.py
+python3 load_csv_data_into_neo4j.py  0.87s user 1.63s system 52% cpu 4.779 total
+```
+
+#### Step 5 - Explore your database using Neo4j Browser
+
+##### View all nodes within your graph database
+
+```cypher
+// Return all nodes (n) in your Neo4j graph database
+MATCH (n) RETURN n
+
+// NOTE: Depending on your settings and the number of nodes within your graph database, you may receive a warning message of `Not all return nodes are being displayed due to Initial Node Display setting. Only first 300 nodes are displayed.`
+```
+
+##### Delete all nodes and relationships within your graph database
+
+```cypher
+// Delete all nodes and relationships in your Neo4j graph database
+MATCH (n) DETACH DELETE n
+```
