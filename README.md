@@ -49,3 +49,34 @@ Python 3.11.1
 ```
 
 That's it! Now, if you re-run the program - with or without the debugger - your Python script should have executed.
+
+## EXAMPLE: Explore Neo4j Graph Data Science
+
+For this example, I'm using the freely available [Neo4j Desktop](https://neo4j.com/download/) app on macOS Ventura 13.5.1 (22G90). Please follow
+
+### Database configuration
+
+By default, Neo4j restricts import from the `import` folder associated with your particular graph database. Please see the guide on [Modifying settings for the DBMS](https://neo4j.com/developer/neo4j-desktop/#desktop-DBMS-settings) so that you can make the following changes to your `neo4j.conf` file for your specific graph database:
+
+```sh
+# ...
+
+# 2023.09.03 => Uncommented so that we can import from file URLs when loading data from our local environment
+dbms.security.allow_csv_import_from_file_urls=true
+
+# 2023.09.03 => Sets the root directory for file:/// URLs used with the Cypher LOAD CSV clause. This should be set to a single directory
+# relative to the Neo4j installation path on the database server. All requests to load from file:/// URLs will then be relative to the
+# specified directory. The default value set in the config settings is import. This is a security measure which prevents the database from
+# accessing files outside the standard import directory, similar to how a Unix chroot operates. Setting this to an empty field will allow
+# access to all files within the Neo4j installation folder. Commenting out this setting will disable the security feature, allowing
+# all files in the local system to be imported. This is definitely not recommended.
+# server.directories.import=import
+
+# 2023.09.03 => This setting determines if Cypher will allow the use of file:/// URLs when loading data using LOAD CSV.
+# Such URLs identify files on the filesystem of the database server. Default is true. Setting dbms.security.allow_csv_import_from_file_urls=false
+# will completely disable access to the file system for LOAD CSV.
+dbms.security.allow_csv_import_from_file_urls=true
+
+# ...
+
+```
