@@ -1,10 +1,39 @@
 {
   "cSpell.words": [
+    "Balshaw",
+    "betweenness",
+    "Carstairs",
+    "Coseley",
+    "Crewe",
+    "Curriehill",
+    "Cypher",
+    "Euxton",
+    "graphdatascience",
+    "Hailes",
+    "Haymarket",
+    "Kingsknowe",
+    "Kirknewton",
+    "Lancs",
+    "Leyland",
     "linspace",
+    "Lockerbie",
     "matplotlib",
+    "Oxenholme",
+    "Penkridge",
+    "Penrith",
     "pyplot",
+    "Sandwell",
     "savefig",
     "simplejson",
-    "venv"
-  ]
+    "Slateford",
+    "Smethwick",
+    "Tipton",
+    "venv",
+    "Winsford",
+    "yoloyolo"
+  ],
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "python.formatting.provider": "none"
 }
