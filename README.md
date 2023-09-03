@@ -319,3 +319,22 @@ python3 determine-the-most-critical-station-in-the-railway-knowledge-graph.py  0
 ```
 
 Tamworth - located just a few miles away from Birmingham - has the highest centrality score and so the greatest impact on the rail network in the case of failures.
+
+### Enriching the knowledge graph
+
+The centrality score we calculated would be useful if it were contained within our knowledge graph - particularly if we wanted to use that centrality for future use cases (such as machine learning)/
+
+Using the `trains` Neo4j Graph Data Science (GDS) projection from above, let's write the centrality scores of our Station nodes back to the underlying knowledge graph as a new `betweenness` property.
+
+```sh
+(.venv) % python3
+
+# OPTIONAL: On macOS and Linux, you can see how long it takes to execute the script with "time"
+(.venv) % time python3
+
+Total number of stations: 2593
+Number of stations with betweenness score: 2593
+
+python3   0.96s user 1.50s system 359% cpu 0.684 total
+
+```
