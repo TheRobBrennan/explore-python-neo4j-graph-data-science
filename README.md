@@ -179,7 +179,7 @@ gds.run_cypher(
 
 Let's load our data:
 
-```python
+```sh
 (.venv) % python3 load-csv-data-into-neo4j.py
 
 # OPTIONAL: On macOS and Linux, you can see how long it takes to execute the script with "time"
@@ -203,4 +203,51 @@ MATCH (n) RETURN n
 ```cypher
 // Delete all nodes and relationships in your Neo4j graph database
 MATCH (n) DETACH DELETE n
+```
+
+### Use Neo4j Graph Data Science (GDS) to create an example graph projection
+
+Let's use the example railway knowledge graph to create our first graph project using Neo4j Graph Data Science (GDS)
+
+First, update `create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py` to match the credentials to connect to your Neo4j graph database
+
+```python
+# create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py
+from graphdatascience import GraphDataScience
+
+# Connect to the database (ex. Neo4j Desktop on macOS)
+# Please see https://neo4j.com/docs/graph-data-science/current/installation/neo4j-desktop/ for a quick visual guide on installing the Neo4j Graph Database Science plug-in to your database
+host = "bolt://localhost:7687"
+user = "neo4j"
+password = "yoloyolo"
+
+# Authenticate to our knowledge graph
+gds = GraphDataScience(host, auth=(user, password), database="neo4j")
+
+# Create a projection called "trains" that will be stored in the graph catalog for later use
+# - The node_spec parameter is a MATCH clause that returns the node IDs of all stations
+# - The relationship_spec parameter is a MATCH clause that returns the node IDs of source and target stations ALONG WITH a distance property for the TRACK relationships that will connect stations in the projection
+#
+# Once executed the projection is stored in the graph catalog and ready for experimentation
+gds.graph.project.cypher(
+    graph_name="trains",
+    node_spec="MATCH (s:Station) RETURN id(s) AS id",
+    relationship_spec="""
+    MATCH (s1:Station)-[t:TRACK]->(s2:Station)
+    RETURN id(s1) AS source, id(s2) AS target, t.distance AS distance
+    """,
+)
+
+gds.close()
+```
+
+Let's run our script to create this example projection:
+
+```sh
+(.venv) % python3 create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py
+
+# OPTIONAL: On macOS and Linux, you can see how long it takes to execute the script with "time"
+(.venv) % time python3 create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py
+Loading: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100.0/100 [00:00<00:00, 4372.53%/s]
+python3   1.16s user 1.32s system 231% cpu 1.075 total
 ```
