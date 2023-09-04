@@ -321,7 +321,7 @@ The most critical station in our railway knowledge graph (based on the highest c
 python3 determine-the-most-critical-station-in-the-railway-knowledge-graph.py  0.90s user 1.47s system 338% cpu 0.701 total
 ```
 
-Tamworth - located just a few miles away from Birmingham - has the highest centrality score and so the greatest impact on the rail network in the case of failures.
+Tamworth - located just a few miles away from Birmingham - has the highest centrality score (1967643.4563345008) and so the greatest impact on the rail network in the case of failures.
 
 ### Enriching the knowledge graph
 
