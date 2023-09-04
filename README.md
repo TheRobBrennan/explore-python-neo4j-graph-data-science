@@ -2,54 +2,6 @@
 
 This project will explore getting started developing with [Python](https://www.python.org) and Neo4j [Graph Data Science](https://neo4j.com/docs/graph-data-science/current/algorithms/) (GDS) as quickly as possible using [Visual Studio Code](https://code.visualstudio.com).
 
-## Local development
-
-### Install dependencies and run our project
-
-```sh
-# Verify that you have Python installed on your machine
-% python3 --version
-Python 3.11.1
-
-# Create a new virtual environment for the project
-% python3 -m venv .venv
-
-# Activate your virtual environment
-% source .venv/bin/activate
-(.venv) %
-
-# Select your new environment by using the Python: Select Interpreter command in VS Code
-#   - Enter the path: ./.venv/bin/python
-
-# Install Python packages in a virtual environment
-# EXAMPLE: Install simplejson - https://pypi.org/project/simplejson/
-# % pip3 install simplejson
-# ... continue to install packages as needed ...
-
-# When you are ready to generate a requirements.txt file
-# % pip3 freeze > requirements.txt
-
-# What happens if you want to uninstall a package?
-
-# Uninstall the package from your virtual environment
-# % pip3 uninstall simplejson
-
-# Remove the dependency from requirements.txt if it exists
-# % pip3 uninstall -r requirements.txt
-
-# Install the packages from requirements.txt
-(.venv) % pip3 install -r requirements.txt
-
-# OPTIONAL: Deactivate your Python Virtual Environment
-(.venv) % deactivate
-%
-
-# OPTIONAL: Delete your Python Virtual Environment
-% rm -r .venv
-```
-
-That's it! Now, if you re-run the program - with or without the debugger - your Python script should have executed.
-
 ## EXAMPLE: Explore Neo4j Graph Data Science
 
 For this example, I'm using the freely available [Neo4j Desktop](https://neo4j.com/download/) app on macOS Ventura 13.5.1 (22G90).
@@ -58,13 +10,13 @@ Please follow the guide at [https://neo4j.com/developer/neo4j-desktop/](https://
 
 TL;DR Already comfortable with having an empty graph database set up? Simply update `config.py` with your credentials and run the desired script(s):
 
-- Load data into your graph database - [load-csv-data-into-neo4j.py](./load-csv-data-into-neo4j.py)
+- Load data into your graph database - [00-load-csv-data-into-neo4j.py](./00-load-csv-data-into-neo4j.py)
   - Configure Neo4j so that you can import files
   - Specify the full path for importing files
-- Create a graph projection using Neo4j Graph Data Science - [create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py](./create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py)
-  - Find the shortest path between two stations - [find-the-shortest-path-between-two-stations.py](./find-the-shortest-path-between-two-stations.py)
-  - Determine the most critical station in the graph - [determine-the-most-critical-station-in-the-railway-knowledge-graph.py](./determine-the-most-critical-station-in-the-railway-knowledge-graph.py)
-  - Compute centrality scores for all Station nodes and write those scores back as a new `betweenness` property - [compute-centrality-scores-for-all-railway-stations-in-our-knowledge-graph.py](./compute-centrality-scores-for-all-railway-stations-in-our-knowledge-graph.py)
+- Create a graph projection using Neo4j Graph Data Science - [01-create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py](./01-create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py)
+  - Find the shortest path between two stations - [02-find-the-shortest-path-between-two-stations.py](./02-find-the-shortest-path-between-two-stations.py)
+  - Determine the most critical station in the graph - [03-determine-the-most-critical-station-in-the-railway-knowledge-graph.py](./03-determine-the-most-critical-station-in-the-railway-knowledge-graph.py)
+  - Compute centrality scores for all Station nodes and write those scores back as a new `betweenness` property - [04-compute-centrality-scores-for-all-railway-stations-in-our-knowledge-graph.py](./04-compute-centrality-scores-for-all-railway-stations-in-our-knowledge-graph.py)
 
 ### Database configuration
 
@@ -187,11 +139,11 @@ gds.run_cypher(
 Let's load our data:
 
 ```sh
-(.venv) % python3 load-csv-data-into-neo4j.py
+(.venv) % python3 00-load-csv-data-into-neo4j.py
 
 # OPTIONAL: On macOS and Linux, you can see how long it takes to execute the script with "time"
-(.venv) % time python3 load-csv-data-into-neo4j.py
-python3 load-csv-data-into-neo4j.py  0.87s user 1.63s system 52% cpu 4.779 total
+(.venv) % time python3 00-load-csv-data-into-neo4j.py
+python3 00-load-csv-data-into-neo4j.py  0.87s user 1.63s system 52% cpu 4.779 total
 ```
 
 #### Step 5 - Explore your database using Neo4j Browser
@@ -216,10 +168,10 @@ MATCH (n) DETACH DELETE n
 
 Let's use the example railway knowledge graph to create our first graph project using Neo4j Graph Data Science (GDS)
 
-First, update `create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py` to match the credentials to connect to your Neo4j graph database
+First, update `01-create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py` to match the credentials to connect to your Neo4j graph database
 
 ```python
-# create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py
+# 01-create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py
 import config
 from graphdatascience import GraphDataScience
 
@@ -247,10 +199,10 @@ gds.close()
 Let's run our script to create this example projection:
 
 ```sh
-(.venv) % python3 create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py
+(.venv) % python3 01-create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py
 
 # OPTIONAL: On macOS and Linux, you can see how long it takes to execute the script with "time"
-(.venv) % time python3 create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py
+(.venv) % time python3 01-create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py
 Loading: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100.0/100 [00:00<00:00, 4372.53%/s]
 python3   1.16s user 1.32s system 231% cpu 1.075 total
 ```
@@ -260,10 +212,10 @@ python3   1.16s user 1.32s system 231% cpu 1.075 total
 Using the `trains` Neo4j Graph Data Science (GDS) projection from above, let's find the shortest path between two stations:
 
 ```sh
-(.venv) % python3 find-the-shortest-path-between-two-stations.py
+(.venv) % python3 02-find-the-shortest-path-between-two-stations.py
 
 # OPTIONAL: On macOS and Linux, you can see how long it takes to execute the script with "time"
-(.venv) % time python3 find-the-shortest-path-between-two-stations.py
+(.venv) % time python3 02-find-the-shortest-path-between-two-stations.py
 Station: Birmingham New Street (Cost: 0.00)
 Station: Smethwick Galton Bridge (Cost: 3.91)
 Station: Sandwell & Dudley (Cost: 5.16)
@@ -301,7 +253,7 @@ Ending Station: Edinburgh
 
 Shortest distance from Birmingham New Street to Edinburgh involves visiting 31 station(s) for a total distance of 295.91
 
-python3 find-the-shortest-path-between-two-stations.py  1.15s user 1.21s system 429% cpu 0.549 total
+python3 02-find-the-shortest-path-between-two-stations.py  1.15s user 1.21s system 429% cpu 0.549 total
 ```
 
 #### Use Neo4j Graph Data Science (GDS) to find the most critical station on the rail network
@@ -311,14 +263,14 @@ SCENARIO: Birmingham New Street is a busy hub station that serves routes across 
 Using the `trains` Neo4j Graph Data Science (GDS) projection from above, let's find the most critical station on the rail network in Great Britain.
 
 ```sh
-(.venv) % python3 determine-the-most-critical-station-in-the-railway-knowledge-graph.py
+(.venv) % python3 03-determine-the-most-critical-station-in-the-railway-knowledge-graph.py
 
 # OPTIONAL: On macOS and Linux, you can see how long it takes to execute the script with "time"
-(.venv) % time python3 determine-the-most-critical-station-in-the-railway-knowledge-graph.py
+(.venv) % time python3 03-determine-the-most-critical-station-in-the-railway-knowledge-graph.py
 
 The most critical station in our railway knowledge graph (based on the highest centrality) is: Tamworth
 
-python3 determine-the-most-critical-station-in-the-railway-knowledge-graph.py  0.90s user 1.47s system 338% cpu 0.701 total
+python3 03-determine-the-most-critical-station-in-the-railway-knowledge-graph.py  0.90s user 1.47s system 338% cpu 0.701 total
 ```
 
 Tamworth - located just a few miles away from Birmingham - has the highest centrality score (1967643.4563345008) and so the greatest impact on the rail network in the case of failures.
@@ -330,10 +282,10 @@ The centrality score we calculated would be useful if it were contained within o
 Using the `trains` Neo4j Graph Data Science (GDS) projection from above, let's write the centrality scores of our Station nodes back to the underlying knowledge graph as a new `betweenness` property.
 
 ```sh
-(.venv) % python3 compute-centrality-scores-for-all-railway-stations-in-our-knowledge-graph.py
+(.venv) % python3 04-compute-centrality-scores-for-all-railway-stations-in-our-knowledge-graph.py
 
 # OPTIONAL: On macOS and Linux, you can see how long it takes to execute the script with "time"
-(.venv) % time python3 compute-centrality-scores-for-all-railway-stations-in-our-knowledge-graph.py
+(.venv) % time python3 04-compute-centrality-scores-for-all-railway-stations-in-our-knowledge-graph.py
 
 Total number of stations: 2593
 Number of stations with betweenness score: 2593
