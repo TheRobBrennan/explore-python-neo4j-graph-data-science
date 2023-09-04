@@ -20,4 +20,18 @@ processed_stations = gds.run_cypher(
 )
 print(f"Number of stations with betweenness score: {processed_stations.iloc[0, 0]}\n")
 
+"""
+// VERIFY: Cypher code to calculate the Betweenness Centrality score for nodes in the `trains` projected graph and write it back to the Station nodes as a new `betweenness` property
+CALL gds.betweenness.write('trains', {
+  writeProperty: 'betweenness'
+})
+"""
+
+"""
+// DELETE the betweenness property from all Station nodes
+MATCH (s:Station)
+REMOVE s.betweenness
+RETURN count(s) as nodesUpdated
+"""
+
 gds.close()

@@ -34,4 +34,19 @@ print(
     )
 )
 
+"""
+// VERIFY: Cypher code to display the shortest path between BHM and EDB
+
+MATCH (bhm:Station {crs:"BHM"}), (edb:Station {crs:"EDB"})
+CALL gds.shortestPath.dijkstra.stream('trains', {sourceNode:bhm, targetNode:edb, relationshipWeightProperty:'distance'})
+YIELD index, sourceNode, targetNode, totalCost, nodeIds, costs, path
+RETURN index,
+    gds.util.asNode(sourceNode).name AS sourceNodeName,
+    gds.util.asNode(targetNode).name AS targetNodeName,
+    totalCost,
+    [nodeId IN nodeIds | gds.util.asNode(nodeId).name] AS nodeNames,
+    costs,
+    nodes(path) as path
+"""
+
 gds.close()
