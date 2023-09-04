@@ -23,7 +23,7 @@ gds.graph.project.cypher(
 // VERIFY: Cypher code to create a graph projection
 
 CALL gds.graph.project.cypher(
-    'trains_test',
+    'trains',
     'MATCH (s:Station) RETURN id(s) AS id',
     'MATCH (s1:Station)-[t:TRACK]->(s2:Station) RETURN id(s1) AS source, id(s2) AS target, t.distance AS distance'
 )
@@ -36,7 +36,7 @@ CALL gds.graph.project.cypher(
 CALL gds.graph.list()
 
 // DELETE a graph projection (NOTE: This does NOT delete underlying nodes or relationships; it only deletes the projection)
-CALL gds.graph.drop('trains_test')
+CALL gds.graph.drop('trains')
 """
 
 gds.close()
