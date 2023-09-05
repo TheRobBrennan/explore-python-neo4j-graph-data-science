@@ -153,7 +153,7 @@ MATCH (n) RETURN n
 // NOTE: Depending on your settings and the number of nodes within your graph database, you may receive a warning message of `Not all return nodes are being displayed due to Initial Node Display setting. Only first 300 nodes are displayed.`
 ```
 
-#### Delete all nodes and relationships within your graph database
+#### OPTIONAL: Delete all nodes and relationships within your graph database
 
 ```cypher
 // Delete all nodes and relationships in your Neo4j graph database
@@ -163,8 +163,6 @@ MATCH (n) DETACH DELETE n
 ## Use Neo4j Graph Data Science (GDS) to create an example graph projection
 
 Let's use the example railway knowledge graph to create our first graph project using Neo4j Graph Data Science (GDS)
-
-First, update `01-create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py` to match the credentials to connect to your Neo4j graph database
 
 ```python
 # 01-create-a-neo4j-gds-graph-projection-from-the-railway-knowledge-graph.py
@@ -264,12 +262,12 @@ Using the `trains` Neo4j Graph Data Science (GDS) projection from above, let's f
 # OPTIONAL: On macOS and Linux, you can see how long it takes to execute the script with "time"
 (.venv) % time python3 03-determine-the-most-critical-station-in-the-railway-knowledge-graph.py
 
-The most critical station in our railway knowledge graph (based on the highest centrality) is: Tamworth
+The most critical station in our railway knowledge graph (based on the highest Betweenness Centrality) is: Tamworth
 
 python3 03-determine-the-most-critical-station-in-the-railway-knowledge-graph.py  0.90s user 1.47s system 338% cpu 0.701 total
 ```
 
-Tamworth - located just a few miles away from Birmingham - has the highest centrality score (1967643.4563345008) and so the greatest impact on the rail network in the case of failures.
+Tamworth - located just a few miles away from Birmingham - has the highest Betweenness Centrality score (1967643.4563345008) and so the greatest impact on the rail network in the case of failures.
 
 ## Enriching the knowledge graph
 
