@@ -6,4 +6,4 @@ This project will explore getting started developing with [Python](https://www.p
 
 The first example in this repo explores loading data into a Neo4j graph database - using graph projects and Graph Data Science algorithms to answer some important questions.
 
-Please see [./examples/example-01-neo4j-python-example-graph-projection/README.md](./examples/example-01-neo4j-python-example-graph-projection/README.md) for more details.
+Please see [EXAMPLE: Explore Neo4j Graph Data Science](./examples/example-01-neo4j-python-example-graph-projection/README.md) for more details.
