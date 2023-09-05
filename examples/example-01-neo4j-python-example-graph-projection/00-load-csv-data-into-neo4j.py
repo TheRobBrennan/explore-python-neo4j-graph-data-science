@@ -14,7 +14,7 @@ gds = GraphDataScience(
 # Load stations as nodes
 gds.run_cypher(
     """
-    LOAD CSV WITH HEADERS FROM 'file:///Users/rob/repos/explore-python-neo4j-graph-data-science/data/nr-stations-all.csv' AS station
+    LOAD CSV WITH HEADERS FROM 'file:///Users/rob/repos/explore-python-neo4j-graph-data-science/examples/example-01-neo4j-python-example-graph-projection/data/nr-stations-all.csv' AS station
     MERGE (:Station {name: station.name, crs: station.crs})
     """
 )
@@ -22,7 +22,7 @@ gds.run_cypher(
 # Load tracks between stations as relationships
 gds.run_cypher(
     """
-  LOAD CSV WITH HEADERS FROM 'file:///Users/rob/repos/explore-python-neo4j-graph-data-science/data/nr-station-links.csv' AS track
+  LOAD CSV WITH HEADERS FROM 'file:///Users/rob/repos/explore-python-neo4j-graph-data-science/examples/example-01-neo4j-python-example-graph-projection/data/nr-station-links.csv' AS track
   MATCH (from:Station {crs: track.from})
   MATCH (to:Station {crs: track.to})
   MERGE (from)-[:TRACK {distance: round( toFloat(track.distance), 2)}]->(to)
