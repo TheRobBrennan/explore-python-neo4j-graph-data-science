@@ -16,7 +16,7 @@ n = gds.run_cypher(
 )
 
 print(
-    f"\nThe most critical station in our railway knowledge graph (based on the highest centrality) is: {n['s.name'][0]}\n"
+    f"\nThe most critical station in our railway knowledge graph (based on the highest Betweenness Centrality) is: {n['s.name'][0]}\n"
 )
 
 """
